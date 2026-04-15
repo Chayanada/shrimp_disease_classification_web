@@ -1,0 +1,13 @@
+yolo detect train `
+  model=yolo26n.pt `
+  data=datasets/stage1_detect/merged/data.yaml `
+  epochs=100 `
+  imgsz=512 `
+  batch=8 `
+  device=0 `
+  workers=4 `
+  patience=25 `
+  cache=disk `
+  amp=True `
+  plots=True `
+  name=stage1_final

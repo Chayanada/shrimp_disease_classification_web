@@ -1,0 +1,29 @@
+<aside class="sidebar">
+    <div class="logo-section">
+        <div class="logo-icon"><i class="fas fa-cube"></i></div>
+        <span class="logo-text">KungKamKram</span>
+    </div>
+
+    <nav class="menu">
+        <a href="/dashboard" class="menu-item {{ 'active' if page == 'dashboard' }}" id="nav-dashboard">
+            <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a href="/classification" class="menu-item {{ 'active' if page == 'classification' }}" id="nav-class">
+            <i class="fas fa-microscope"></i> Disease Classification
+        </a>
+        <a href="/realtime" class="menu-item {{ 'active' if page == 'realtime' }}" id="nav-realtime">
+            <i class="fas fa-video"></i> Realtime Detection
+        </a>
+        <a href="/history" class="menu-item {{ 'active' if page == 'history' }}" id="nav-history">
+            <i class="fas fa-history"></i> History / Library
+        </a>
+    </nav>
+
+    <div class="user-card">
+        <img src="user-avatar.png" alt="User">
+        <div class="user-info">
+            <p class="user-name">Frankie Sullivan</p>
+            <p class="user-role">@Owner</p>
+        </div>
+    </div>
+</aside>

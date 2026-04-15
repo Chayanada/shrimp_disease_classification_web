@@ -1,0 +1,23 @@
+# Python
+.venv311/
+__pycache__/
+sql/
+*.pyc
+
+# Node
+node_modules/
+
+# AI / ML
+datasets/
+runs/
+*.pt
+*.onnx
+
+# Test images
+*.jpg
+*.jpeg
+*.png
+
+# OS
+.DS_Store
+Thumbs.db

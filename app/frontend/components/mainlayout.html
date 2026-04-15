@@ -1,0 +1,26 @@
+<div class="app-container">
+    
+    <aside class="sidebar">
+        <div class="logo-section" style="margin-bottom: 40px; font-weight: bold; font-size: 1.2rem;">
+            KungKamKram Export
+        </div>
+        
+        <nav class="menu" style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="/dashboard" class="menu-item">Dashboard</a>
+            <a href="/classification" class="menu-item active">Disease Classification</a>
+            <a href="/realtime" class="menu-item">Realtime Detection</a>
+            <a href="/library" class="menu-item">Library</a>
+            <a href="/admin managing" class="menu-item">Admin Managing</a>
+        </nav>
+
+        <div class="user-profile" style="margin-top: auto; padding: 15px; border: 1px solid #eee; border-radius: 10px;">
+            <p>ผู้ใช้: nai</p>
+            <button style="background: #22c55e; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Logout</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>

@@ -1,0 +1,142 @@
+/* 1. Global Setup & Font */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-blue: #1e3a8a;
+    --success-green: #2ecc71;
+    --bg-gray: #f8fafc;
+    --border-color: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Prompt', sans-serif;
+}
+
+body {
+    background-color: var(--bg-gray);
+    color: #1e293b;
+    overflow: hidden; /* ป้องกัน scroll ทั้งหน้าจอ */
+}
+
+/* 2. Main Layout (Sidebar + Content) */
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    height: 100%;
+    background: white;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    flex-shrink: 0; /* ป้องกัน Sidebar โดนบีบ */
+    z-index: 10;
+}
+
+/* พื้นที่เนื้อหาหลักทางขวา */
+#app {
+    flex-grow: 1;
+    height: 100%;
+    background-color: var(--bg-gray);
+    overflow-y: auto; /* ให้เลื่อนขึ้นลงได้เฉพาะส่วนเนื้อหา */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Auth Section (Login / Register) */
+/* ใช้ครอบคลุมทั้งหน้าตอนยังไม่ Login */
+#auth-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* ทับทุกอย่าง */
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* 4. UI Elements (Buttons, Inputs) */
+input[type="text"], input[type="password"], input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+input:focus { border-color: #3b82f6; }
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--success-green);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+button:hover { background-color: #27ae60; }
+button.secondary { background-color: #e2e8f0; color: #475569; }
+
+/* 5. Navigation Items inside Sidebar */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #64748b;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.menu-item:hover { background: #f1f5f9; color: var(--primary-blue); }
+.menu-item.active { background: #eff6ff; color: #3b82f6; font-weight: 600; }
+
+/* 6. Page Content Styling */
+.page-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 { color: var(--primary-blue); margin-bottom: 20px; }
+

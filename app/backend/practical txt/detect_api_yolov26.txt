@@ -1,0 +1,69 @@
+5/3/69
+ไฟล์ backend stage1_detect ของ project
+
+
+from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
+from ultralytics import YOLO
+import numpy as np
+import cv2
+import base64
+
+app = FastAPI()
+
+# อนุญาตให้ Vite (localhost:5173) เรียก API ได้
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ✅ เปลี่ยน path ให้ตรงกับของคุณ
+# ถ้าเทรนเสร็จแล้ว ใช้ best.pt จะดีที่สุด
+MODEL_PATH = r"C:\Users\Chayanada\Desktop\shrimp_project\runs\detect\stage1_final\weights\best.pt"
+model = YOLO(MODEL_PATH)
+
+@app.get("/health")
+def health():
+    return {"ok": True, "model": MODEL_PATH}
+
+@app.post("/detect")
+async def detect(file: UploadFile = File(...)):
+    # อ่านไฟล์รูป -> numpy
+    data = await file.read()
+    nparr = np.frombuffer(data, np.uint8)
+    img_bgr = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+    # รันโมเดล
+    results = model.predict(img_bgr, conf=0.25, imgsz=512, device=0, verbose=False)
+    r = results[0]
+
+    # จำนวนกุ้ง = จำนวน box
+    count = int(len(r.boxes)) if r.boxes is not None else 0
+
+    # ดึง bbox (xyxy)
+    boxes = []
+    if r.boxes is not None and len(r.boxes) > 0:
+        xyxy = r.boxes.xyxy.cpu().numpy()
+        conf = r.boxes.conf.cpu().numpy()
+        cls = r.boxes.cls.cpu().numpy()
+        for (x1, y1, x2, y2), c, cl in zip(xyxy, conf, cls):
+            boxes.append({
+                "x1": float(x1), "y1": float(y1),
+                "x2": float(x2), "y2": float(y2),
+                "conf": float(c),
+                "class": int(cl)
+            })
+
+    # รูปที่วาดกรอบแล้ว
+    plotted = r.plot()  # BGR uint8
+    ok, buf = cv2.imencode(".jpg", plotted)
+    b64 = base64.b64encode(buf.tobytes()).decode("utf-8")
+
+    return {
+        "count": count,
+        "boxes": boxes,
+        "image_base64": b64
+    }

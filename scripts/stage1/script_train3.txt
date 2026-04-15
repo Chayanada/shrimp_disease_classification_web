@@ -1,0 +1,13 @@
+yolo detect train `
+  model=yolo26n.pt `
+  data=datasets/stage1_detect/subset_12k_balanced/data.yaml `
+  epochs=100 `
+  imgsz=640 `
+  batch=8 `
+  device=0 `
+  workers=4 `
+  patience=25 `
+  cache=disk `
+  amp=True `
+  plots=True `
+  name=detect12k_balanced

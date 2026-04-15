@@ -1,0 +1,31 @@
+// 6/3/69
+// bbox จับพอดีกับลำดัวของกุ้ง
+
+import cv2
+from ultralytics import YOLO
+import time
+
+MODEL_PATH = r"C:\Users\Chayanada\Desktop\shrimp_project\runs\detect\stage1_final\weights\best.onnx"
+model = YOLO(MODEL_PATH)
+
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+prev = time.time()
+while True:
+    ok, frame = cap.read()
+    if not ok:
+        break
+
+    r = model.predict(frame, imgsz=640, conf=0.25, iou=0.7, device="cpu", verbose=False)[0]
+    annotated = r.plot()
+
+    fps = 1.0 / max(1e-6, (time.time() - prev))
+    prev = time.time()
+    cv2.putText(annotated, f"FPS: {fps:.1f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
+
+    cv2.imshow("shrimp detect", annotated)
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
