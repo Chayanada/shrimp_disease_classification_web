@@ -8,6 +8,10 @@ app/backend/past/
 app/backend/practical txt/
 app/backend/test py/
 
+app/frontend/past/
+app/frontend/practical txt/
+app/frontend/test/
+
 # Node
 node_modules/
 
