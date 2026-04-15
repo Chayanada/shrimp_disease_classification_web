@@ -3,6 +3,10 @@
 __pycache__/
 sql/
 *.pyc
+app/backend/iot txt/
+app/backend/past/
+app/backend/practical txt/
+app/backend/test py/
 
 # Node
 node_modules/
